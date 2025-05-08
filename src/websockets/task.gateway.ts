@@ -4,7 +4,7 @@ import {
   SubscribeMessage,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-import { TaskService } from '../board/services/task.service';
+import { TaskService } from '../tasks/services/task.service';
 
 @WebSocketGateway({
   cors: {
@@ -13,7 +13,7 @@ import { TaskService } from '../board/services/task.service';
     credentials: true,
   },
 })
-export class BoardGateway {
+export class TaskGateway {
   @WebSocketServer()
   server: Server;
 

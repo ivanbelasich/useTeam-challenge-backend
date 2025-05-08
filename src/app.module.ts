@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { BoardModule } from './board/board.module';
-import { BoardGateway } from './websockets/board.gateway';
-import { TaskController } from './board/controllers/task.controller';
+import { BoardModule } from './tasks/task.module';
+import { TaskGateway } from './websockets/task.gateway';
+import { TaskController } from './tasks/controllers/task.controller';
 
 @Module({
   imports: [
@@ -12,6 +12,6 @@ import { TaskController } from './board/controllers/task.controller';
     BoardModule,
   ],
   controllers: [TaskController],
-  providers: [BoardGateway],
+  providers: [TaskGateway],
 })
 export class AppModule {}
