@@ -41,6 +41,25 @@ export class TaskGateway {
     }
   }
 
+  @SubscribeMessage('taskUpdated')
+  async handleTaskUpdated(
+    client: any,
+    payload: { id: string; title: string; description: string },
+  ) {
+    try {
+      const updatedTask = await this.taskService.update(payload.id, {
+        title: payload.title,
+        description: payload.description,
+      });
+
+      this.server.emit('taskUpdated', updatedTask);
+
+      return { success: true, task: updatedTask };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
+
   @SubscribeMessage('getTasks')
   async handleGetTasks() {
     try {
