@@ -7,6 +7,12 @@ async function bootstrap() {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
+    allowedHeaders: [
+      'ngrok-skip-browser-warning',
+      'Content-Type',
+      'Authorization',
+      'Accept',
+    ],
   });
 
   await app.listen(process.env.PORT ?? 4000);
