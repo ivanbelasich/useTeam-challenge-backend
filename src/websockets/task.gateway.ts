@@ -69,6 +69,20 @@ export class TaskGateway {
     }
   }
 
+  @SubscribeMessage('taskCreated')
+  async handleTaskCreated(
+    client: any,
+    payload: { title: string; description: string; status: string },
+  ) {
+    try {
+      const newTask = await this.taskService.create(payload);
+      this.server.emit('taskCreated', newTask);
+      return { success: true, task: newTask };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
+
   @SubscribeMessage('getTasks')
   async handleGetTasks() {
     try {
