@@ -51,10 +51,19 @@ export class TaskGateway {
         title: payload.title,
         description: payload.description,
       });
-
       this.server.emit('taskUpdated', updatedTask);
-
       return { success: true, task: updatedTask };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
+
+  @SubscribeMessage('taskDeleted')
+  async handleTaskDeleted(client: any, id: string) {
+    try {
+      await this.taskService.remove(id);
+      this.server.emit('taskDeleted', id);
+      return { success: true, message: 'Task deleted successfully' };
     } catch (error) {
       return { success: false, error: error.message };
     }
