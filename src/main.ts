@@ -15,6 +15,13 @@ async function bootstrap() {
     ],
   });
 
-  await app.listen(process.env.PORT ?? 4000);
+  const port = process.env.PORT || 4000;
+  await app.listen(port);
+  return app;
 }
-bootstrap();
+
+if (process.env.NODE_ENV !== 'production') {
+  bootstrap();
+}
+
+export default bootstrap();
