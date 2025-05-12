@@ -4,8 +4,8 @@ API REST para el tablero Kanban construida con NestJS, MongoDB y WebSockets.
 
 ## Demo
 
-El servidor está desplegado en Render y la base de datos en MongoAtlas.
-El frontend está desplegado en: [https://use-team-challenge.vercel.app/](https://use-team-challenge.vercel.app/)
+- El servidor está desplegado en Render y la base de datos en MongoAtlas.
+- El frontend está desplegado en: [https://use-team-challenge.vercel.app/](https://use-team-challenge.vercel.app/)
 
 ## Requisitos
 
