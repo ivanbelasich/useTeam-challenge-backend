@@ -8,7 +8,7 @@ import { TaskService } from '../tasks/services/task.service';
 
 @WebSocketGateway({
   cors: {
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   },
@@ -36,8 +36,10 @@ export class TaskGateway {
       });
 
       return { success: true, task: updatedTask };
-    } catch (error) {
-      return { success: false, error: error.message };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { success: false, error: error.message };
+      }
     }
   }
 
@@ -53,8 +55,10 @@ export class TaskGateway {
       });
       this.server.emit('taskUpdated', updatedTask);
       return { success: true, task: updatedTask };
-    } catch (error) {
-      return { success: false, error: error.message };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { success: false, error: error.message };
+      }
     }
   }
 
@@ -64,8 +68,10 @@ export class TaskGateway {
       await this.taskService.remove(id);
       this.server.emit('taskDeleted', id);
       return { success: true, message: 'Task deleted successfully' };
-    } catch (error) {
-      return { success: false, error: error.message };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { success: false, error: error.message };
+      }
     }
   }
 
@@ -78,8 +84,10 @@ export class TaskGateway {
       const newTask = await this.taskService.create(payload);
       this.server.emit('taskCreated', newTask);
       return { success: true, task: newTask };
-    } catch (error) {
-      return { success: false, error: error.message };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { success: false, error: error.message };
+      }
     }
   }
 
@@ -88,8 +96,10 @@ export class TaskGateway {
     try {
       const tasks = await this.taskService.findAll();
       return { success: true, tasks };
-    } catch (error) {
-      return { success: false, error: error.message };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { success: false, error: error.message };
+      }
     }
   }
 }

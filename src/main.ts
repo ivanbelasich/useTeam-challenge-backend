@@ -20,8 +20,4 @@ async function bootstrap() {
   return app;
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  bootstrap();
-}
-
 export default bootstrap();
